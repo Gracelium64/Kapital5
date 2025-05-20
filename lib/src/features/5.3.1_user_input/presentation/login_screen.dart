@@ -22,9 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Kapital 5.3.1'),
-        backgroundColor: Palette.darkTeal,
-      ),
-
+              ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
