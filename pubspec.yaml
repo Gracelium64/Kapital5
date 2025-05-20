@@ -1,0 +1,33 @@
+name: kapital_5
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  material_design_icons_flutter: ^7.0.7296
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  fonts:
+      - family: Inter
+        fonts:
+          - asset: assets/fonts/Inter/Inter-VariableFont_opsz,wght.ttf
+      - family: InterBlack
+        fonts:
+          - asset: assets/fonts/Inter/static/Inter_18pt-Black.ttf
+      - family: Lobster
+        fonts:
+          - asset: assets/fonts/Lobster/Lobster-Regular.ttf
+      - family: Marvel
+        fonts:
+          - asset: assets/fonts/Marvel/Marvel-Regular.ttf
