@@ -4,6 +4,7 @@ import 'package:kapital_5/src/theme/palette.dart';
 abstract class AppTheme {
   static final darkTheme = ThemeData(
     appBarTheme: AppBarTheme(backgroundColor: Palette.darkTeal),
+    snackBarTheme: SnackBarThemeData(backgroundColor: Palette.darkTeal),
     colorScheme: ColorScheme.fromSeed(
       seedColor: Palette.lightTeal,
       brightness: Brightness.dark,

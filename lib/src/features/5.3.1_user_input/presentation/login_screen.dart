@@ -20,9 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Kapital 5.3.1'),
-              ),
+      appBar: AppBar(title: Text('Kapital 5.3.1')),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -49,7 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: InputDecoration(
                 labelText: 'Password',
                 hintText: 'Enter Password',
-
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Palette.darkTeal, width: 1),
                 ),
@@ -81,7 +78,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ),
-                        backgroundColor: Palette.darkTeal,
                       ),
                     );
                   }
