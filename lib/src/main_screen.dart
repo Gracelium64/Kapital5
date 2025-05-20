@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kapital_5/src/bunny.dart';
 import 'package:kapital_5/src/data/databaserepository.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_screen.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/text_input_app.dart';
@@ -11,7 +12,11 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> screensList = [LoginScreen(repository), TextInputApp()];
+    List<Widget> screensList = [
+      Bunny(),
+      LoginScreen(repository),
+      TextInputApp(),
+    ];
 
     return Scaffold(
       appBar: AppBar(
