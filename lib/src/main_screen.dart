@@ -28,23 +28,26 @@ class MainScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: screensList.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => screensList[index],
-                      ),
-                    );
-                  },
-                  leading: Icon(Icons.assignment),
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: screensList.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => screensList[index],
+                        ),
+                      );
+                    },
+                    leading: Icon(Icons.assignment),
 
-                  title: Text('${screensList[index]}'),
-                );
-              },
+                    title: Text('${screensList[index]}'),
+                  );
+                },
+              ),
             ),
           ],
         ),
