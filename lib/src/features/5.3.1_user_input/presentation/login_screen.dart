@@ -23,94 +23,97 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(title: Text('Kapital 5.3.1')),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          spacing: 12,
-          children: [
-            SizedBox(height: 8),
-            Text(
-              'Follow the white rabbit',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            TextFormField(
-              controller: userName,
-              decoration: InputDecoration(
-                labelText: 'User Name',
-                hintText: 'Enter User Name',
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Palette.darkTeal, width: 1),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            spacing: 12,
+            children: [
+              SizedBox(height: 8),
+              Text(
+                'Follow the white rabbit',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              TextFormField(
+                controller: userName,
+                decoration: InputDecoration(
+                  labelText: 'User Name',
+                  hintText: 'Enter User Name',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Palette.darkTeal, width: 1),
+                  ),
                 ),
               ),
-            ),
-            TextFormField(
-              controller: userPassword,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                hintText: 'Enter Password',
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Palette.darkTeal, width: 1),
+              TextFormField(
+                controller: userPassword,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  hintText: 'Enter Password',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Palette.darkTeal, width: 1),
+                  ),
                 ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  final tempUser = widget.repository.getUser(
-                    userName.text,
-                    userPassword.text,
-                  );
-
-                  if (tempUser != null) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder:
-                            (context) => LoggedIn(widget.repository, tempUser),
-                      ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    final tempUser = widget.repository.getUser(
+                      userName.text,
+                      userPassword.text,
                     );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Computer says "No"',
-                            style: Theme.of(context).textTheme.bodyLarge,
+          
+                    if (tempUser != null) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => LoggedIn(widget.repository, tempUser),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Computer says "No"',
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }
-                  userName.text = '';
-                  userPassword.text = '';
-                });
-              },
-              child: Row(
-                spacing: 4,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    MdiIcons.rabbitVariantOutline,
-                    color: Palette.basicBitchWhite,
-                  ),
-                  Text('Login'),
-                  Icon(
-                    MdiIcons.rabbitVariantOutline,
-                    color: Palette.basicBitchWhite,
-                  ),
-                ],
+                      );
+                    }
+                    userName.text = '';
+                    userPassword.text = '';
+                  });
+                },
+                child: Row(
+                  spacing: 4,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      MdiIcons.rabbitVariantOutline,
+                      color: Palette.basicBitchWhite,
+                    ),
+                    Text('Login'),
+                    Icon(
+                      MdiIcons.rabbitVariantOutline,
+                      color: Palette.basicBitchWhite,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Forgot Password?',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            Text(
-              'Sounds like a you problem',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ],
+              SizedBox(height: 16),
+              Text(
+                'Forgot Password?',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              Text(
+                'Sounds like a you problem',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ),
         ),
       ),
     );

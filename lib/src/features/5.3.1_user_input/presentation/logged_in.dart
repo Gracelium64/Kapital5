@@ -13,13 +13,16 @@ class LoggedIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Welcome!')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.check, size: 64, color: Palette.neonGreen),
-            Text('Welcome back ${user.userName}!'),
-          ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.check, size: 64, color: Palette.neonGreen),
+              Text('Welcome back ${user.userName}!'),
+            ],
+          ),
         ),
       ),
     );

@@ -40,83 +40,88 @@ class _InputValidationState extends State<InputValidation> {
             });
           },
           key: formKey,
-          child: Column(
-            spacing: 12,
-            children: [
-              SizedBox(height: 8),
-              Text(
-                'Registeration',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: userNameValidation,
-                controller: userName,
-                decoration: InputDecoration(
-                  labelText: 'User Name',
-                  hintText: 'Enter User Name',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Palette.darkTeal, width: 1),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              spacing: 12,
+              children: [
+                SizedBox(height: 8),
+                Text(
+                  'Registeration',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: userNameValidation,
+                  controller: userName,
+                  decoration: InputDecoration(
+                    labelText: 'User Name',
+                    hintText: 'Enter User Name',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Palette.darkTeal, width: 1),
+                    ),
                   ),
                 ),
-              ),
-              TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: userEmailValitation,
-                controller: userEmail,
-                decoration: InputDecoration(
-                  labelText: 'E-Mail',
-                  hintText: 'Enter a valid E-Mail',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Palette.darkTeal, width: 1),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: userEmailValitation,
+                  controller: userEmail,
+                  decoration: InputDecoration(
+                    labelText: 'E-Mail',
+                    hintText: 'Enter a valid E-Mail',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Palette.darkTeal, width: 1),
+                    ),
                   ),
                 ),
-              ),
-              TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: userPasswordValidation,
-                controller: userPassword,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  hintText: 'Enter Password',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Palette.darkTeal, width: 1),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: userPasswordValidation,
+                  controller: userPassword,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    hintText: 'Enter Password',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Palette.darkTeal, width: 1),
+                    ),
                   ),
                 ),
-              ),
-              ElevatedButton(
-                onPressed:
-                    isButtonEnabled
-                        ? null
-                        : () {
-                          setState(() {
-                            bool isFormValid = formKey.currentState!.validate();
-                            isButtonEnabled = !isFormValid;
+                ElevatedButton(
+                  onPressed:
+                      isButtonEnabled
+                          ? null
+                          : () {
+                            setState(() {
+                              bool isFormValid =
+                                  formKey.currentState!.validate();
+                              isButtonEnabled = !isFormValid;
 
-                            widget.repository.createAppUser(
-                              AppUser(
-                                userName: userName.text,
-                                email: userEmail.text,
-                                password: userPassword.text,
-                              ),
-                            );
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder:
-                                    (context) => LoginScreen(widget.repository),
-                              ),
-                            );
-                          });
-                        },
+                              widget.repository.createAppUser(
+                                AppUser(
+                                  userName: userName.text,
+                                  email: userEmail.text,
+                                  password: userPassword.text,
+                                ),
+                              );
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder:
+                                      (context) =>
+                                          LoginScreen(widget.repository),
+                                ),
+                              );
+                            });
+                          },
 
-                child: Row(
-                  spacing: 4,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text('Register')],
+                  child: Row(
+                    spacing: 4,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Text('Register')],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
