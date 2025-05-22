@@ -4,4 +4,5 @@ abstract class DataBaseRepository {
 
   void createAppUser (AppUser appUser);
   AppUser? getUser(String name, password);
+
 }

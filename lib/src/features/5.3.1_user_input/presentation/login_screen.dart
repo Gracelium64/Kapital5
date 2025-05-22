@@ -34,8 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
             TextFormField(
               controller: userName,
               decoration: InputDecoration(
-                labelText: 'Name',
-                hintText: 'Enter Name',
+                labelText: 'User Name',
+                hintText: 'Enter User Name',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Palette.darkTeal, width: 1),
                 ),
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
 
                   if (tempUser != null) {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder:
@@ -100,6 +100,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Forgot Password?',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            Text(
+              'Sounds like a you problem',
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),

@@ -3,6 +3,7 @@ import 'package:kapital_5/src/bunny.dart';
 import 'package:kapital_5/src/data/databaserepository.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_screen.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/text_input_app.dart';
+import 'package:kapital_5/src/features/5.1.4_input_validation/presentation/input_validation.dart';
 import 'package:kapital_5/src/theme/palette.dart';
 
 class MainScreen extends StatelessWidget {
@@ -16,6 +17,7 @@ class MainScreen extends StatelessWidget {
       Bunny(),
       LoginScreen(repository),
       TextInputApp(),
+      InputValidation(repository),
     ];
 
     return Scaffold(

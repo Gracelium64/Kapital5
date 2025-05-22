@@ -3,8 +3,8 @@ import 'package:kapital_5/src/features/5.3.1_user_input/domain/app_user.dart';
 
 class MockDataRepository implements DataBaseRepository {
   final List<AppUser> userList = [
-    AppUser(name: 'Grace', password: 'TheGame'),
-    AppUser(name: 'Grace2', password: 'no'),
+    AppUser(userName: 'Grace', email: 'decoy@icloud.com', password: 'TheGame'),
+    AppUser(userName: 'Grace2', email: 'decoy@gmail.com', password: 'no'),
   ];
 
   @override
@@ -16,10 +16,11 @@ class MockDataRepository implements DataBaseRepository {
   AppUser? getUser(String name, password) {
     try {
       return userList.firstWhere(
-        (user) => user.name == name && user.password == password,
+        (user) => user.userName == name && user.password == password,
       );
     } catch (e) {
       return null;
     }
   }
+
 }

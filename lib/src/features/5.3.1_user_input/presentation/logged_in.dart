@@ -18,7 +18,7 @@ class LoggedIn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.check, size: 64, color: Palette.neonGreen),
-            Text('Welcome back ${user.name}!'),
+            Text('Welcome back ${user.userName}!'),
           ],
         ),
       ),
