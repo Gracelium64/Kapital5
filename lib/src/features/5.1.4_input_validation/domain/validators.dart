@@ -8,8 +8,6 @@ String passwordStringUpperCase = 'Password';
 String passwordStringLowerCase = 'password';
 String allNumbers = '0123456789';
 
-
-
 String? userNameValidation(String? userInput) {
   if (userInput == null || userInput.length < 3) {
     return 'User Name must have at least 3 characters';
