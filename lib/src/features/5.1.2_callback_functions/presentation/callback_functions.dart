@@ -39,6 +39,7 @@ class _CallbackFunctionsState extends State<CallbackFunctions> {
                     box1 = count;
                   });
                 },
+                buttonText: 'Never gonna',
               ),
               CounterBox(
                 boxColor: Palette.monarchPurple2,
@@ -47,6 +48,7 @@ class _CallbackFunctionsState extends State<CallbackFunctions> {
                     box2 = count;
                   });
                 },
+                buttonText: 'Give you',
               ),
               CounterBox(
                 boxColor: Palette.lightTeal,
@@ -55,12 +57,13 @@ class _CallbackFunctionsState extends State<CallbackFunctions> {
                     box3 = count;
                   });
                 },
+                buttonText: 'Up',
               ),
 
               Text(
                 finalCount < 15
                     ? 'Box1[$box1] + Box2[$box2] + Box3[$box3] = $finalCount'
-                    : 'You just lost The Game',
+                    : 'You just lost The Game [$finalCount]',
               ),
             ],
           ),
