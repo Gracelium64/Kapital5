@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
-      horizontalPadding = 112;
+      horizontalPadding = 110;
       verticallPadding = 50;
     } else if (Platform.isAndroid) {
       horizontalPadding = 118;

@@ -23,7 +23,7 @@ class _CallbackFunctionsState extends State<CallbackFunctions> {
     int finalCount = box1 + box2 + box3;
 
     if (Platform.isIOS) {
-      horizontalPadding = 112;
+      horizontalPadding = 76;
       verticallPadding = 50;
     } else if (Platform.isAndroid) {
       horizontalPadding = 84;

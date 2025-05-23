@@ -24,7 +24,7 @@ class _TextInputAppState extends State<TextInputApp> {
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
-      horizontalPadding = 112;
+      horizontalPadding = 100;
       verticallPadding = 50;
     } else if (Platform.isAndroid) {
       horizontalPadding = 108;

@@ -11,7 +11,7 @@ class Bunny extends StatelessWidget {
     double verticallPadding = 0;
 
     if (Platform.isIOS) {
-      horizontalPadding = 112;
+      horizontalPadding = 150;
       verticallPadding = 50;
     } else if (Platform.isAndroid) {
       horizontalPadding = 160;

@@ -29,7 +29,7 @@ class _InputValidationState extends State<InputValidation> {
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
-      horizontalPadding = 112;
+      horizontalPadding = 90;
       verticallPadding = 50;
     } else if (Platform.isAndroid) {
       horizontalPadding = 100;
