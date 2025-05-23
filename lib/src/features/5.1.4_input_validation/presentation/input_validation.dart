@@ -47,7 +47,7 @@ class _InputValidationState extends State<InputValidation> {
               children: [
                 SizedBox(height: 8),
                 Text(
-                  'Registeration',
+                  'Registration',
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 TextFormField(
