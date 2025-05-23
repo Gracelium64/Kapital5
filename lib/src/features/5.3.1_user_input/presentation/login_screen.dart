@@ -20,7 +20,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Kapital 5.3.1')),
+      appBar: AppBar(
+        flexibleSpace: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 110, vertical: 48),
+          child: Text('5.3.1'),
+        ),
+        title: Text('Login Screen'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
@@ -61,13 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       userName.text,
                       userPassword.text,
                     );
-          
+
                     if (tempUser != null) {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder:
-                              (context) => LoggedIn(widget.repository, tempUser),
+                              (context) =>
+                                  LoggedIn(widget.repository, tempUser),
                         ),
                       );
                     } else {

@@ -28,7 +28,13 @@ class _InputValidationState extends State<InputValidation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('5.1.4 Input Validation')),
+      appBar: AppBar(
+        flexibleSpace: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 92, vertical: 48),
+          child: Text('5.1.4'),
+        ),
+        title: Text('Input Validation'),
+      ),
 
       body: Padding(
         padding: const EdgeInsets.all(16),

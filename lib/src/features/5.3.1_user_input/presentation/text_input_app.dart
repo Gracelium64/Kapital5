@@ -20,7 +20,13 @@ class _TextInputAppState extends State<TextInputApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Text Input App')),
+      appBar: AppBar(
+        flexibleSpace: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 48),
+          child: Text('5.3.1'),
+        ),
+        title: Text('Text Input App'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

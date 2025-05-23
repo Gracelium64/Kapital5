@@ -7,7 +7,13 @@ class Bunny extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        flexibleSpace: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 48),
+          child: Text(':3'),
+        ),
+        title: Text('Bunny!'),
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Center(
