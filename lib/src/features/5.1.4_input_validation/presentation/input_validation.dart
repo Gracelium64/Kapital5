@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kapital_5/src/data/databaserepository.dart';
 import 'package:kapital_5/src/features/5.1.4_input_validation/domain/validators.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/domain/app_user.dart';
-import 'package:kapital_5/src/features/5.3.1_user_input/presentation/logged_in.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_screen.dart';
 import 'package:kapital_5/src/theme/palette.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class InputValidation extends StatefulWidget {
   final DataBaseRepository repository;
@@ -22,7 +20,6 @@ class _InputValidationState extends State<InputValidation> {
   TextEditingController userPassword = TextEditingController(text: '');
 
   final formKey = GlobalKey<FormState>();
-  // bool isFormValid = false;
   bool isButtonEnabled = true;
 
   @override
@@ -142,6 +139,3 @@ class _InputValidationState extends State<InputValidation> {
     super.dispose();
   }
 }
-
-// AutovalidateMode: AutovalidateMode.always
-// validator: userNameValidation
