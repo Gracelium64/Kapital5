@@ -4,6 +4,7 @@ import 'package:kapital_5/src/features/5.1.4_input_validation/domain/validators.
 import 'package:kapital_5/src/features/5.3.1_user_input/domain/app_user.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_screen.dart';
 import 'package:kapital_5/src/theme/palette.dart';
+import 'dart:io' show Platform;
 
 class InputValidation extends StatefulWidget {
   final DataBaseRepository repository;
@@ -22,12 +23,27 @@ class _InputValidationState extends State<InputValidation> {
   final formKey = GlobalKey<FormState>();
   bool isButtonEnabled = true;
 
+  double horizontalPadding = 0;
+  double verticallPadding = 0;
+
   @override
   Widget build(BuildContext context) {
+    if (Platform.isIOS) {
+      horizontalPadding = 112;
+      verticallPadding = 50;
+    } else if (Platform.isAndroid) {
+      horizontalPadding = 100;
+      verticallPadding = 40;
+    }
+
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         flexibleSpace: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 92, vertical: 48),
+          padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding,
+            vertical: verticallPadding,
+          ),
           child: Text('5.1.4'),
         ),
         title: Text('Input Validation'),

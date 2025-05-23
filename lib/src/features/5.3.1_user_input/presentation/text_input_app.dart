@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
 
 class TextInputApp extends StatefulWidget {
   const TextInputApp({super.key});
@@ -15,14 +16,29 @@ class _TextInputAppState extends State<TextInputApp> {
     "Viel Erfolg",
   ];
 
+  double horizontalPadding = 0;
+  double verticallPadding = 0;
+
   TextEditingController textInput = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
+    if (Platform.isIOS) {
+      horizontalPadding = 112;
+      verticallPadding = 50;
+    } else if (Platform.isAndroid) {
+      horizontalPadding = 108;
+      verticallPadding = 40;
+    }
+
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         flexibleSpace: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 48),
+          padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding,
+            vertical: verticallPadding,
+          ),
           child: Text('5.3.1'),
         ),
         title: Text('Text Input App'),

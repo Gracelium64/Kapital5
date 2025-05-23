@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kapital_5/src/features/5.1.2_callback_functions/presentation/widgets/counter_box.dart';
 import 'package:kapital_5/src/theme/palette.dart';
+import 'dart:io' show Platform;
 
 class CallbackFunctions extends StatefulWidget {
   const CallbackFunctions({super.key});
@@ -14,14 +15,29 @@ class _CallbackFunctionsState extends State<CallbackFunctions> {
   int box2 = 0;
   int box3 = 0;
 
+  double horizontalPadding = 0;
+  double verticallPadding = 0;
+
   @override
   Widget build(BuildContext context) {
     int finalCount = box1 + box2 + box3;
 
+    if (Platform.isIOS) {
+      horizontalPadding = 112;
+      verticallPadding = 50;
+    } else if (Platform.isAndroid) {
+      horizontalPadding = 84;
+      verticallPadding = 40;
+    }
+
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         flexibleSpace: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 76, vertical: 48),
+          padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding,
+            vertical: verticallPadding,
+          ),
           child: Text('5.1.2'),
         ),
         title: Text('Callback Functions'),

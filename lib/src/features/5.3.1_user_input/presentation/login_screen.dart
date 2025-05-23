@@ -3,6 +3,7 @@ import 'package:kapital_5/src/data/databaserepository.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/logged_in.dart';
 import 'package:kapital_5/src/theme/palette.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'dart:io' show Platform;
 
 class LoginScreen extends StatefulWidget {
   final DataBaseRepository repository;
@@ -17,12 +18,27 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController userName = TextEditingController(text: '');
   TextEditingController userPassword = TextEditingController(text: '');
 
+  double horizontalPadding = 0;
+  double verticallPadding = 0;
+
   @override
   Widget build(BuildContext context) {
+    if (Platform.isIOS) {
+      horizontalPadding = 112;
+      verticallPadding = 50;
+    } else if (Platform.isAndroid) {
+      horizontalPadding = 118;
+      verticallPadding = 40;
+    }
+
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         flexibleSpace: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 110, vertical: 48),
+          padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding,
+            vertical: verticallPadding,
+          ),
           child: Text('5.3.1'),
         ),
         title: Text('Login Screen'),

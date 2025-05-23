@@ -12,7 +12,7 @@ class LoggedIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Welcome!')),
+      appBar: AppBar(centerTitle: true, title: Text('Welcome!')),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Center(

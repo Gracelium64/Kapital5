@@ -6,6 +6,7 @@ import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_scree
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/text_input_app.dart';
 import 'package:kapital_5/src/features/5.1.4_input_validation/presentation/input_validation.dart';
 import 'package:kapital_5/src/theme/palette.dart';
+import 'dart:io' show Platform;
 
 class MainScreen extends StatelessWidget {
   final DataBaseRepository repository;
@@ -24,6 +25,7 @@ class MainScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Kapital 5'),
         backgroundColor: Palette.darkTeal,
       ),
