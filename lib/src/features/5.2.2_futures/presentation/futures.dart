@@ -15,7 +15,7 @@ class _FuturesState extends State<Futures> {
 
   double horizontalPadding = 0;
   double verticallPadding = 0;
-  String tony = 'Go';
+  String textInput = 'Go';
   bool isLoading = false;
   String buttonText = 'Click me!';
 
@@ -46,7 +46,7 @@ class _FuturesState extends State<Futures> {
           spacing: 32,
           children: [
             SizedBox(),
-            Text(tony),
+            Text(textInput),
             Stack(
               children: [
                 ElevatedButton(
@@ -61,7 +61,7 @@ class _FuturesState extends State<Futures> {
                               userInput.text,
                             );
                             setState(() {
-                              tony = result;
+                              textInput = result;
                               isLoading = false;
                               buttonText = 'Click me not!';
                             });
@@ -69,7 +69,7 @@ class _FuturesState extends State<Futures> {
                               _,
                             ) {
                               setState(() {
-                                tony = 'Hold on..';
+                                textInput = 'Hold on..';
                               });
                             });
                             isLoading = true;
@@ -77,14 +77,14 @@ class _FuturesState extends State<Futures> {
                               _,
                             ) {
                               setState(() {
-                                tony = '...';
+                                textInput = '...';
                               });
                             });
                             await Future.delayed(Duration(seconds: 2)).then((
                               _,
                             ) {
                               setState(() {
-                                tony = 'Go';
+                                textInput = 'Go';
                                 buttonText = 'Click me!';
                                 isLoading = false;
                               });
