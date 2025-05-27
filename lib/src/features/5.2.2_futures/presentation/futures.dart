@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:kapital_5/src/features/5.2.2_futures/domain/functions.dart';
+import 'package:kapital_5/src/theme/palette.dart';
 
 class Futures extends StatefulWidget {
   const Futures({super.key});
@@ -10,6 +11,8 @@ class Futures extends StatefulWidget {
 }
 
 class _FuturesState extends State<Futures> {
+  TextEditingController userInput = TextEditingController(text: 'Go');
+
   double horizontalPadding = 0;
   double verticallPadding = 0;
   String tony = 'Go';
@@ -54,13 +57,15 @@ class _FuturesState extends State<Futures> {
                             setState(() {
                               isLoading = true;
                             });
-                            String result = await threeTimesTony('Go');
+                            String result = await threeTimesTony(
+                              userInput.text,
+                            );
                             setState(() {
                               tony = result;
                               isLoading = false;
                               buttonText = 'Click me not!';
                             });
-                            await Future.delayed(Duration(seconds: 1)).then((
+                            await Future.delayed(Duration(seconds: 2)).then((
                               _,
                             ) {
                               setState(() {
@@ -94,6 +99,19 @@ class _FuturesState extends State<Futures> {
                   child: isLoading ? CircularProgressIndicator() : SizedBox(),
                 ),
               ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 116),
+              child: TextFormField(
+                controller: userInput,
+                decoration: InputDecoration(
+                  labelText: 'Test me',
+                  hintText: 'If you dare',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Palette.darkTeal, width: 1),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
