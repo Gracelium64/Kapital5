@@ -14,6 +14,7 @@ class _FuturesState extends State<Futures> {
   double verticallPadding = 0;
   String tony = 'Go';
   bool isLoading = false;
+  String buttonText = 'Click me!';
 
   @override
   Widget build(BuildContext context) {
@@ -44,25 +45,40 @@ class _FuturesState extends State<Futures> {
             SizedBox(),
             Text(tony),
             ElevatedButton(
-              onPressed: () async {
-                setState(() {
-                  isLoading = true;
-                });
-                String result = await threeTimesTony('Go');
-                setState(() {
-                  tony = result;
-                  isLoading = false;
-                });
-                isLoading = true;
-                await Future.delayed(Duration(seconds: 2)).then((_) {
-                  setState(() {
-                    tony = 'Go';
-                    isLoading = false;
-                  });
-                });
-              },
+              onPressed:
+                  isLoading
+                      ? null
+                      : () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        String result = await threeTimesTony('Go');
+                        setState(() {
+                          tony = result;
+                          isLoading = false;
+                          buttonText = 'Click me not!';
+                        });
+                        await Future.delayed(Duration(seconds: 1)).then((_) {
+                          setState(() {
+                            tony = 'Hold on..';
+                          });
+                        });
+                        isLoading = true;
+                        await Future.delayed(Duration(seconds: 2)).then((_) {
+                          setState(() {
+                            tony = '...';
+                          });
+                        });
+                        await Future.delayed(Duration(seconds: 2)).then((_) {
+                          setState(() {
+                            tony = 'Go';
+                            buttonText = 'Click me!';
+                            isLoading = false;
+                          });
+                        });
+                      },
 
-              child: isLoading ? Text('Loading') : Text('Click me!'),
+              child: isLoading ? Text('Loading') : Text(buttonText),
             ),
           ],
         ),
