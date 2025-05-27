@@ -12,6 +12,17 @@ dependencies:
   flutter_launcher_icons: ^0.14.3
   material_design_icons_flutter: ^7.0.7296
   sync_http: ^0.3.1
+  flutter_native_splash: ^2.4.6
+
+flutter_native_splash:
+  android_12: 
+    image: "assets/img/IconKitchen-Output/android/res/mipmap-mdpi/ic_launcher_background.png"
+  icon_background_color: "#000000"
+  android: true
+  ios: true
+  web: false
+  color: "#000000"
+  image: "assets/img/IconKitchen-Output/android/res/mipmap-xxxhdpi/ic_launcher_monochrome.png"
 
 flutter_icons:
     android: true
