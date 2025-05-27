@@ -9,16 +9,29 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.14.3
   material_design_icons_flutter: ^7.0.7296
   sync_http: ^0.3.1
+
+flutter_icons:
+    android: true
+    ios: true
+    image_path: "assets/img/IconKitchen-Output/ios/AppIcon-40@3x.png"
+    remove_alpha_ios: true
+    adaptive_icon_background: "assets/img/IconKitchen-Output/android/res/mipmap-xxxhdpi/ic_launcher_background.png"
+    adaptive_icon_foreground: "assets/img/IconKitchen-Output/android/res/mipmap-xxxhdpi/ic_launcher_foreground.png"
+    adaptive_icon_monochrome: "assets/img/IconKitchen-Output/android/res/mipmap-xxxhdpi/ic_launcher_monochrome.png"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/img/
   fonts:
       - family: Inter
         fonts:
