@@ -37,14 +37,6 @@ class _FuturesState extends State<Futures> {
         ),
         title: Text('Futures'),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            tony = 'Go';
-          });
-        },
-        child: Icon(Icons.refresh),
-      ),
       body: Center(
         child: Column(
           spacing: 32,
@@ -61,7 +53,15 @@ class _FuturesState extends State<Futures> {
                   tony = result;
                   isLoading = false;
                 });
+                isLoading = true;
+                await Future.delayed(Duration(seconds: 2)).then((_) {
+                  setState(() {
+                    tony = 'Go';
+                    isLoading = false;
+                  });
+                });
               },
+
               child: isLoading ? Text('Loading') : Text('Click me!'),
             ),
           ],
