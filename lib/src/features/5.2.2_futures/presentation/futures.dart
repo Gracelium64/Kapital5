@@ -118,4 +118,10 @@ class _FuturesState extends State<Futures> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    userInput.dispose();
+    super.dispose();
+  }
 }
