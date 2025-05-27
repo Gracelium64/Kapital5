@@ -1,7 +1,7 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
-import 'package:kapital_5/src/features/5.2.2_futures/domain/funcs.dart';
+import 'package:kapital_5/src/features/5.2.2_futures/domain/functions.dart';
 
 class Futures extends StatefulWidget {
   const Futures({super.key});
