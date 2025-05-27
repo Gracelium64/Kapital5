@@ -44,41 +44,56 @@ class _FuturesState extends State<Futures> {
           children: [
             SizedBox(),
             Text(tony),
-            ElevatedButton(
-              onPressed:
-                  isLoading
-                      ? null
-                      : () async {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        String result = await threeTimesTony('Go');
-                        setState(() {
-                          tony = result;
-                          isLoading = false;
-                          buttonText = 'Click me not!';
-                        });
-                        await Future.delayed(Duration(seconds: 1)).then((_) {
-                          setState(() {
-                            tony = 'Hold on..';
-                          });
-                        });
-                        isLoading = true;
-                        await Future.delayed(Duration(seconds: 2)).then((_) {
-                          setState(() {
-                            tony = '...';
-                          });
-                        });
-                        await Future.delayed(Duration(seconds: 2)).then((_) {
-                          setState(() {
-                            tony = 'Go';
-                            buttonText = 'Click me!';
-                            isLoading = false;
-                          });
-                        });
-                      },
+            Stack(
+              children: [
+                ElevatedButton(
+                  onPressed:
+                      isLoading
+                          ? null
+                          : () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            String result = await threeTimesTony('Go');
+                            setState(() {
+                              tony = result;
+                              isLoading = false;
+                              buttonText = 'Click me not!';
+                            });
+                            await Future.delayed(Duration(seconds: 1)).then((
+                              _,
+                            ) {
+                              setState(() {
+                                tony = 'Hold on..';
+                              });
+                            });
+                            isLoading = true;
+                            await Future.delayed(Duration(seconds: 2)).then((
+                              _,
+                            ) {
+                              setState(() {
+                                tony = '...';
+                              });
+                            });
+                            await Future.delayed(Duration(seconds: 2)).then((
+                              _,
+                            ) {
+                              setState(() {
+                                tony = 'Go';
+                                buttonText = 'Click me!';
+                                isLoading = false;
+                              });
+                            });
+                          },
 
-              child: isLoading ? Text('Loading') : Text(buttonText),
+                  child: isLoading ? Text('Loading') : Text(buttonText),
+                ),
+                Positioned(
+                  top: 4,
+                  left: 32,
+                  child: isLoading ? CircularProgressIndicator() : SizedBox(),
+                ),
+              ],
             ),
           ],
         ),
