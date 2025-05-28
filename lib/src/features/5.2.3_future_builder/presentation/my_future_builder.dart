@@ -57,7 +57,7 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
               child: Text('Click me!'),
             ),
             SizedBox(
-              height: 138,
+              height: 158,
               child: Column(
                 spacing: 12,
                 mainAxisAlignment: MainAxisAlignment.end,

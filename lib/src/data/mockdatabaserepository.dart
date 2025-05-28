@@ -8,9 +8,9 @@ class MockDataRepository implements DataBaseRepository {
   ];
 
   List<String> internetsWon = [
-    'Grace Savings and Risk Assessments',
-    'The first 3 Internets are on us',
-    'Your money is safe with us ;)',
+    // 'Grace Savings and Risk Assessments',
+    // 'The first 3 Internets are on us',
+    // 'Your money is safe with us ;)',
   ];
 
   @override
@@ -20,8 +20,8 @@ class MockDataRepository implements DataBaseRepository {
 
   @override
   void removeInternets() {
-    internetsWon.removeLast();
-    internetsWon.removeLast();
+    internetsWon.removeAt(0);
+    internetsWon.removeAt(0);
   }
 
   @override
