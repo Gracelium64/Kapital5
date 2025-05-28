@@ -11,8 +11,8 @@ Future<bool> addToCart(DataBaseRepository repository) async {
   } else if (randomNumber == 1) {
     return false;
   } else {
-    repository.removeInternets();
     repository.addInternets('-1 Internets, oopsie');
+    repository.removeInternets();
     1 ~/ 0;
     return false;
   }

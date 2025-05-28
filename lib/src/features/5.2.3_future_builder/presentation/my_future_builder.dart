@@ -76,7 +76,6 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
                                   });
                                 }
                               });
-
                               return Column(
                                 children: [
                                   Icon(Icons.error, size: 50),
@@ -136,7 +135,6 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
                       color: Palette.highlight,
                       width: 1,
                     ),
-
                     title: Text(currentItem),
                   );
                 },
