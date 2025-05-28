@@ -69,6 +69,14 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
                           if (snapshot.connectionState ==
                               ConnectionState.done) {
                             if (snapshot.hasError) {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                if (!hasUpdated) {
+                                  setState(() {
+                                    hasUpdated = true;
+                                  });
+                                }
+                              });
+
                               return Column(
                                 children: [
                                   Icon(Icons.error, size: 50),
@@ -98,7 +106,6 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
                         },
                       )
                       : SizedBox(),
-
                   Text('Wallet:'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -119,7 +126,10 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
                   String currentItem = widget.repository.getInternets()[index];
                   return ListTile(
                     minTileHeight: 40,
-                    textColor: Palette.neonGreen,
+                    textColor:
+                        currentItem == '-1 Internets, oopsie'
+                            ? Palette.neonRed
+                            : Palette.neonGreen,
                     tileColor: Palette.lightTeal,
                     shape: Border.all(
                       style: BorderStyle.solid,

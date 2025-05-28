@@ -7,17 +7,27 @@ class MockDataRepository implements DataBaseRepository {
     AppUser(userName: 'Grace2', email: 'decoy@gmail.com', password: 'no'),
   ];
 
-List<String> internetsWon = [];
+  List<String> internetsWon = [
+    'Grace Savings and Risk Assessments',
+    'The first 3 Internets are on us',
+    'Your money is safe with us ;)',
+  ];
 
-@override
-void addInternets(String data) {
-  internetsWon.add(data);
-}
+  @override
+  void addInternets(String data) {
+    internetsWon.add(data);
+  }
 
-@override
-List<String> getInternets() {
-  return internetsWon;
-}
+  @override
+  void removeInternets() {
+    internetsWon.removeLast();
+    internetsWon.removeLast();
+  }
+
+  @override
+  List<String> getInternets() {
+    return internetsWon;
+  }
 
   @override
   void createAppUser(AppUser appUser) {
@@ -34,5 +44,4 @@ List<String> getInternets() {
       return null;
     }
   }
-
 }

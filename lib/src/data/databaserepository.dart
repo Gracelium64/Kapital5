@@ -6,5 +6,5 @@ abstract class DataBaseRepository {
   AppUser? getUser(String name, password);
   void addInternets (String data);
   List<String> getInternets();
-
+  void removeInternets();
 }
