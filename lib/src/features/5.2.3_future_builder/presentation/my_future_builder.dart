@@ -127,7 +127,7 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
                   return ListTile(
                     minTileHeight: 40,
                     textColor:
-                        currentItem == '-1 Internets, oopsie'
+                        currentItem.contains('-1')
                             ? Palette.neonRed
                             : Palette.neonGreen,
                     tileColor: Palette.lightTeal,
