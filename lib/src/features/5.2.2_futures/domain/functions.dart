@@ -1,10 +1,8 @@
 Future<String> threeTimesTony(String data) async {
-  await Future.delayed(Duration(seconds: 3));
-
   try {
-    return '$data$data$data';
+    await Future.delayed(Duration(seconds: 3));
+    return data * 3;
   } catch (e1) {
     return 'Error e1';
-    
   }
 }

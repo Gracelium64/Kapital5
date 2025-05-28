@@ -3,6 +3,7 @@ import 'package:kapital_5/src/bunny.dart';
 import 'package:kapital_5/src/data/databaserepository.dart';
 import 'package:kapital_5/src/features/5.1.2_callback_functions/presentation/callback_functions.dart';
 import 'package:kapital_5/src/features/5.2.2_futures/presentation/futures.dart';
+import 'package:kapital_5/src/features/5.2.3_future_builder/presentation/my_future_builder.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_screen.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/text_input_app.dart';
 import 'package:kapital_5/src/features/5.1.4_input_validation/presentation/input_validation.dart';
@@ -22,6 +23,7 @@ class MainScreen extends StatelessWidget {
       InputValidation(repository),
       CallbackFunctions(),
       Futures(),
+      MyFutureBuilder(),
     ];
 
     return Scaffold(

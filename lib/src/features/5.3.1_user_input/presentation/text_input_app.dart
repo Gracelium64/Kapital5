@@ -11,9 +11,9 @@ class TextInputApp extends StatefulWidget {
 class _TextInputAppState extends State<TextInputApp> {
   // State
   List<String> messages = [
-    "Hallo Batch #9",
-    "Willkommen in Kapitel 5!",
-    "Viel Erfolg",
+    "Hello Batch #9",
+    "Welcome to Kapitel 5!",
+    "Live long, and prosper",
   ];
 
   double horizontalPadding = 0;
@@ -62,7 +62,7 @@ class _TextInputAppState extends State<TextInputApp> {
             TextField(
               controller: textInput,
               decoration: const InputDecoration(
-                labelText: 'Text eingeben',
+                labelText: 'Enter text',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -74,7 +74,7 @@ class _TextInputAppState extends State<TextInputApp> {
                   textInput.text = '';
                 });
               },
-              child: const Text('Absenden'),
+              child: const Text('Send'),
             ),
           ],
         ),
