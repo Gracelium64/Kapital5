@@ -7,6 +7,18 @@ class MockDataRepository implements DataBaseRepository {
     AppUser(userName: 'Grace2', email: 'decoy@gmail.com', password: 'no'),
   ];
 
+List<String> internetsWon = [];
+
+@override
+void addInternets(String data) {
+  internetsWon.add(data);
+}
+
+@override
+List<String> getInternets() {
+  return internetsWon;
+}
+
   @override
   void createAppUser(AppUser appUser) {
     userList.add(appUser);

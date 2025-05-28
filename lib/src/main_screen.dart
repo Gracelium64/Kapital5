@@ -23,7 +23,7 @@ class MainScreen extends StatelessWidget {
       InputValidation(repository),
       CallbackFunctions(),
       Futures(),
-      MyFutureBuilder(),
+      MyFutureBuilder(repository),
     ];
 
     return Scaffold(

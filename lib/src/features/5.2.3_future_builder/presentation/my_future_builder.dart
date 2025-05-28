@@ -1,9 +1,14 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
+import 'package:kapital_5/src/data/databaserepository.dart';
+import 'package:kapital_5/src/features/5.2.3_future_builder/domain/functions.dart';
+import 'package:kapital_5/src/theme/palette.dart';
 
 class MyFutureBuilder extends StatefulWidget {
-  const MyFutureBuilder({super.key});
+  final DataBaseRepository repository;
+
+  const MyFutureBuilder(this.repository, {super.key});
 
   @override
   State<MyFutureBuilder> createState() => _MyFutureBuilderState();
@@ -12,7 +17,6 @@ class MyFutureBuilder extends StatefulWidget {
 class _MyFutureBuilderState extends State<MyFutureBuilder> {
   double horizontalPadding = 0;
   double verticallPadding = 0;
-  List<String> internetsWon = [];
   Future<bool>? itemFuture;
   bool hasUpdated = false;
 
@@ -46,14 +50,14 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  itemFuture = addToCart('Pizza');
+                  itemFuture = addToCart(widget.repository);
                   hasUpdated = false;
                 });
               },
               child: Text('Click me!'),
             ),
             SizedBox(
-              height: 102,
+              height: 138,
               child: Column(
                 spacing: 12,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -77,6 +81,9 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
                                   _,
                                 ) {
                                   setState(() {
+                                    debugPrint(
+                                      'Number of Internets ${widget.repository.getInternets().length.toString()}',
+                                    );
                                     hasUpdated = true;
                                   });
                                 });
@@ -93,16 +100,35 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
                       : SizedBox(),
 
                   Text('Wallet:'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(widget.repository.getInternets().length.toString()),
+                      Icon(Icons.star_rounded, color: Palette.lightTeal),
+                    ],
+                  ),
                 ],
               ),
             ),
+            Spacer(),
             Expanded(
               flex: 1,
               child: ListView.builder(
-                itemCount: internetsWon.length,
+                itemCount: widget.repository.getInternets().length,
                 itemBuilder: (context, index) {
-                  String currentItem = internetsWon[index];
-                  return ListTile(title: Text(currentItem));
+                  String currentItem = widget.repository.getInternets()[index];
+                  return ListTile(
+                    minTileHeight: 40,
+                    textColor: Palette.neonGreen,
+                    tileColor: Palette.lightTeal,
+                    shape: Border.all(
+                      style: BorderStyle.solid,
+                      color: Palette.highlight,
+                      width: 1,
+                    ),
+
+                    title: Text(currentItem),
+                  );
                 },
               ),
             ),
@@ -110,20 +136,5 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
         ),
       ),
     );
-  }
-
-  Future<bool> addToCart(String data) async {
-    await Future.delayed(Duration(seconds: 2));
-    int randomNumber = DateTime.now().microsecondsSinceEpoch % 3;
-
-    if (randomNumber == 0) {
-      internetsWon.add('1 Internets, use it wisely');
-      return true;
-    } else if (randomNumber == 1) {
-      return false;
-    } else {
-      1 ~/ 0;
-      return false;
-    }
   }
 }

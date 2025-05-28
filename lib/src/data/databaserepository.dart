@@ -4,5 +4,7 @@ abstract class DataBaseRepository {
 
   void createAppUser (AppUser appUser);
   AppUser? getUser(String name, password);
+  void addInternets (String data);
+  List<String> getInternets();
 
 }
