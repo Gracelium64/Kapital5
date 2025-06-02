@@ -118,6 +118,7 @@ class _InputValidationState extends State<InputValidation> {
                             });
 
                             await Future.delayed(Duration(seconds: 3));
+                            //// without this delay it loads almost automatically although in the async function there is a 3 seconds delay
                             final tempRegister =
                                 widget.repository.createAppUser;
 
