@@ -26,6 +26,8 @@ class _InputValidationState extends State<InputValidation> {
   double horizontalPadding = 0;
   double verticallPadding = 0;
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
@@ -110,19 +112,28 @@ class _InputValidationState extends State<InputValidation> {
                   onPressed:
                       isButtonEnabled
                           ? null
-                          : () {
+                          : () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+
+                            await Future.delayed(Duration(seconds: 3));
+                            final tempRegister =
+                                widget.repository.createAppUser;
+
                             setState(() {
                               bool isFormValid =
                                   formKey.currentState!.validate();
                               isButtonEnabled = !isFormValid;
 
-                              widget.repository.createAppUser(
+                              tempRegister(
                                 AppUser(
                                   userName: userName.text,
                                   email: userEmail.text,
                                   password: userPassword.text,
                                 ),
                               );
+                              isLoading = false;
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
                                   builder:
@@ -139,6 +150,8 @@ class _InputValidationState extends State<InputValidation> {
                     children: [Text('Register')],
                   ),
                 ),
+                SizedBox(height: 100),
+                isLoading ? CircularProgressIndicator() : SizedBox(),
               ],
             ),
           ),

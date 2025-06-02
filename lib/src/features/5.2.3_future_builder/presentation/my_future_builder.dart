@@ -19,6 +19,13 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
   double verticallPadding = 0;
   Future<bool>? itemFuture;
   bool hasUpdated = false;
+  late Future<List<String>> myList;
+
+  @override
+  void initState() {
+    super.initState();
+    myList = widget.repository.getInternets();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,104 +50,122 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
         title: Text('Future Builder'),
       ),
       body: Center(
-        child: Column(
-          spacing: 8,
-          children: [
-            SizedBox(),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  itemFuture = addToCart(widget.repository);
-                  hasUpdated = false;
-                });
-              },
-              child: Text('Click me!'),
-            ),
-            SizedBox(
-              height: 158,
-              child: Column(
-                spacing: 12,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  itemFuture != null
-                      ? FutureBuilder(
-                        future: itemFuture,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            if (snapshot.hasError) {
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                if (!hasUpdated) {
-                                  setState(() {
-                                    hasUpdated = true;
-                                  });
-                                }
-                              });
-                              return Column(
-                                children: [
-                                  Icon(Icons.error, size: 50),
-                                  Text(snapshot.error.toString()),
-                                ],
-                              );
-                            } else {
-                              if (snapshot.data == true && !hasUpdated) {
-                                WidgetsBinding.instance.addPostFrameCallback((
-                                  _,
-                                ) {
-                                  setState(() {
-                                    debugPrint(
-                                      'Number of Internets ${widget.repository.getInternets().length.toString()}',
-                                    );
-                                    hasUpdated = true;
-                                  });
-                                });
-                              }
-                              return Text(
-                                'Internets won - ${snapshot.data.toString() == 'true' ? 'Yes!' : 'No!'}',
-                              );
-                            }
-                          } else {
-                            return CircularProgressIndicator();
-                          }
-                        },
-                      )
-                      : SizedBox(),
-                  Text('Wallet:'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+        child: FutureBuilder<List<String>>(
+          future: myList,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Text('No data available');
+            }
+
+            final data = snapshot.data!;
+
+            return Column(
+              spacing: 8,
+              children: [
+                SizedBox(),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      itemFuture = addToCart(widget.repository);
+                      hasUpdated = false;
+                    });
+                  },
+                  child: Text('Click me!'),
+                ),
+                SizedBox(
+                  height: 158,
+                  child: Column(
+                    spacing: 12,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(widget.repository.getInternets().length.toString()),
-                      Icon(Icons.star_rounded, color: Palette.lightTeal),
+                      itemFuture != null
+                          ? FutureBuilder(
+                            future: itemFuture,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.hasError) {
+                                  WidgetsBinding.instance.addPostFrameCallback((
+                                    _,
+                                  ) {
+                                    if (!hasUpdated) {
+                                      setState(() {
+                                        hasUpdated = true;
+                                      });
+                                    }
+                                  });
+                                  return Column(
+                                    children: [
+                                      Icon(Icons.error, size: 50),
+                                      Text(snapshot.error.toString()),
+                                    ],
+                                  );
+                                } else {
+                                  if (snapshot.data == true && !hasUpdated) {
+                                    WidgetsBinding.instance.addPostFrameCallback((
+                                      _,
+                                    ) {
+                                      setState(() {
+                                        debugPrint(
+                                          'Number of Internets ${data.length.toString()}',
+                                          // 'Number of Internets ${widget.repository.getInternets().length.toString()}',
+                                        );
+                                        hasUpdated = true;
+                                      });
+                                    });
+                                  }
+                                  return Text(
+                                    'Internets won - ${snapshot.data.toString() == 'true' ? 'Yes!' : 'No!'}',
+                                  );
+                                }
+                              } else {
+                                return CircularProgressIndicator();
+                              }
+                            },
+                          )
+                          : SizedBox(),
+                      Text('Wallet:'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(data.length.toString()),
+                          Icon(Icons.star_rounded, color: Palette.lightTeal),
+                        ],
+                      ),
                     ],
                   ),
-                ],
-              ),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 1,
-              child: ListView.builder(
-                itemCount: widget.repository.getInternets().length,
-                itemBuilder: (context, index) {
-                  String currentItem = widget.repository.getInternets()[index];
-                  return ListTile(
-                    minTileHeight: 40,
-                    textColor:
-                        currentItem.contains('-1')
-                            ? Palette.neonRed
-                            : Palette.neonGreen,
-                    tileColor: Palette.lightTeal,
-                    shape: Border.all(
-                      style: BorderStyle.solid,
-                      color: Palette.highlight,
-                      width: 1,
-                    ),
-                    title: Text(currentItem),
-                  );
-                },
-              ),
-            ),
-          ],
+                ),
+                Spacer(),
+                Expanded(
+                  flex: 1,
+                  child: ListView.builder(
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      String currentItem = data[index];
+                      return ListTile(
+                        minTileHeight: 40,
+                        textColor:
+                            currentItem.contains('-1')
+                                ? Palette.neonRed
+                                : Palette.neonGreen,
+                        tileColor: Palette.lightTeal,
+                        shape: Border.all(
+                          style: BorderStyle.solid,
+                          color: Palette.highlight,
+                          width: 1,
+                        ),
+                        title: Text(currentItem),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

@@ -7,6 +7,7 @@ import 'package:kapital_5/src/features/5.2.3_future_builder/presentation/my_futu
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_screen.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/text_input_app.dart';
 import 'package:kapital_5/src/features/5.1.4_input_validation/presentation/input_validation.dart';
+import 'package:kapital_5/src/features/ms_paint/presentation/ms_paint.dart';
 import 'package:kapital_5/src/theme/palette.dart';
 
 class MainScreen extends StatelessWidget {
@@ -16,7 +17,10 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+
     List<Widget> screensList = [
+      MsPaint2172x1152(),
       Bunny(),
       LoginScreen(repository),
       TextInputApp(),
@@ -26,39 +30,42 @@ class MainScreen extends StatelessWidget {
       MyFutureBuilder(repository),
     ];
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Kapital 5'),
-        backgroundColor: Palette.darkTeal,
-      ),
+    return SizedBox(
+      width: screenSize.width / 2,
+      height: screenSize.height / 3,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text('Kapital 5'),
+          backgroundColor: Palette.darkTeal,
+        ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: screensList.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => screensList[index],
-                        ),
-                      );
-                    },
-                    leading: Icon(Icons.assignment),
-
-                    title: Text('${screensList[index]}'),
-                  );
-                },
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: screensList.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => screensList[index],
+                          ),
+                        );
+                      },
+                      leading: Icon(Icons.assignment),
+                      title: Text('${screensList[index]}'),
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kapital_5/src/data/databaserepository.dart';
+import 'package:kapital_5/src/features/5.3.1_user_input/domain/app_user.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/logged_in.dart';
 
 import 'package:kapital_5/src/theme/palette.dart';
@@ -90,8 +91,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         context,
                         MaterialPageRoute(
                           builder:
-                              (context) =>
-                                  LoggedIn(widget.repository, tempUser),
+                              (context) => LoggedIn(
+                                widget.repository,
+                                tempUser as AppUser,
+                              ),
                         ),
                       );
                     } else {

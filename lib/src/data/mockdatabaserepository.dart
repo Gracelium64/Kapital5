@@ -14,28 +14,33 @@ class MockDataRepository implements DataBaseRepository {
   ];
 
   @override
-  void addInternets(String data) {
+  Future<void> addInternets(String data) async {
+    await Future.delayed(Duration(seconds: 3));
     internetsWon.add(data);
   }
 
   @override
-  void removeInternets() {
+  Future<void> removeInternets() async {
+    await Future.delayed(Duration(seconds: 3));
     internetsWon.removeAt(0);
     internetsWon.removeAt(0);
   }
 
   @override
-  List<String> getInternets() {
+  Future<List<String>> getInternets() async {
+    await Future.delayed(Duration(seconds: 3));
     return internetsWon;
   }
 
   @override
-  void createAppUser(AppUser appUser) {
+  Future<void> createAppUser(AppUser appUser) async {
+    await Future.delayed(Duration(seconds: 3));
     userList.add(appUser);
   }
 
   @override
-  AppUser? getUser(String name, password) {
+  Future<AppUser?> getUser(String name, password) async {
+    await Future.delayed(Duration(seconds: 3));
     try {
       return userList.firstWhere(
         (user) => user.userName == name && user.password == password,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kapital_5/src/data/databaserepository.dart';
+import 'package:kapital_5/src/features/5.3.1_user_input/domain/app_user.dart';
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/logged_in.dart';
 import 'package:kapital_5/src/theme/palette.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -20,6 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   double horizontalPadding = 0;
   double verticallPadding = 0;
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,13 +80,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   setState(() {
-                    final tempUser = widget.repository.getUser(
-                      userName.text,
-                      userPassword.text,
-                    );
+                    isLoading = true;
+                  });
 
+                  final tempUser = await widget.repository.getUser(
+                    userName.text,
+                    userPassword.text,
+                  );
+                  setState(() {
+                    isLoading = false;
                     if (tempUser != null) {
                       Navigator.pushReplacement(
                         context,
@@ -135,6 +142,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 'Sounds like a you problem',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
+              SizedBox(height: 100),
+              isLoading ? CircularProgressIndicator() : SizedBox(),
             ],
           ),
         ),
