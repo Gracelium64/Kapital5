@@ -8,13 +8,12 @@ import 'package:device_preview/device_preview.dart';
 void main() {
   DataBaseRepository repository = MockDataRepository();
 
-//  runApp(
-//     DevicePreview(
-//       enabled: !kReleaseMode,
-//       builder: (context) => App(repository),
-//     ),
-//   );
-
+  //  runApp(
+  //     DevicePreview(
+  //       enabled: !kReleaseMode,
+  //       builder: (context) => App(repository),
+  //     ),
+  //   );
 
   runApp(App(repository));
 }
