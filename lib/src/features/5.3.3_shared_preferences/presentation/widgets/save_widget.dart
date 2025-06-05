@@ -48,7 +48,7 @@ class _SaveWidgetState extends State<SaveWidget> {
           child: TextFormField(
             controller: widget.userInput,
             decoration: InputDecoration(
-              labelText: 'Tell Me of the Waters of Your Homeworld, Usul',
+              labelText: 'Tell me of the waters of your homeworld, Usul',
               labelStyle: TextStyle(fontSize: 14),
               hintText: 'Enter Name',
               border: OutlineInputBorder(
