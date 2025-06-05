@@ -3,14 +3,12 @@ import 'package:kapital_5/src/theme/palette.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SaveWidget extends StatefulWidget {
+  final TextEditingController userInput;
+
   const SaveWidget({
     super.key,
     required this.userInput,
-    this.name,
   });
-
-  final TextEditingController userInput;
-  final String? name;
 
   @override
   State<SaveWidget> createState() => _SaveWidgetState();
@@ -18,12 +16,6 @@ class SaveWidget extends StatefulWidget {
 
 class _SaveWidgetState extends State<SaveWidget> {
   String? name = '';
-
-  @override
-  void initState() {
-    super.initState();
-    getName();
-  }
 
   Future<void> sayMyName() async {
     final prefs = await SharedPreferences.getInstance();
@@ -35,6 +27,12 @@ class _SaveWidgetState extends State<SaveWidget> {
     setState(() {
       name = prefs.getString('name');
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getName();
   }
 
   @override
