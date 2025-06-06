@@ -112,7 +112,6 @@ class _MyFutureBuilderState extends State<MyFutureBuilder> {
                                       setState(() {
                                         debugPrint(
                                           'Number of Internets ${data.length.toString()}',
-                                          // 'Number of Internets ${widget.repository.getInternets().length.toString()}',
                                         );
                                         hasUpdated = true;
                                       });
