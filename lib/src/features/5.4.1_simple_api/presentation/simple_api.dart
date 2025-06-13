@@ -12,6 +12,9 @@ class SimpleApi extends StatefulWidget {
 
 class _SimpleApiState extends State<SimpleApi> {
   Future<String>? bullshit;
+  late Future<String> ipFuture;
+  late Future<String> cityFuture;
+  late Future<String> countryFuture;
 
   Future<String> bullshitLoader() async {
     final response = await http.get(
@@ -25,8 +28,47 @@ class _SimpleApiState extends State<SimpleApi> {
     return jsonConverted['phrase'];
   }
 
+  Future<String> ipDisplay() async {
+    final reponseIp = await http.get(
+      Uri.parse('https://api.ipify.org/?format=json'),
+    );
+    String jsonStringIp = reponseIp.body;
+    final jsonConvertedIp = jsonDecode(jsonStringIp);
+    return jsonConvertedIp['ip'];
+  }
+
+  Future<String> ipCity(String ip) async {
+    final responseIpCity = await http.get(
+      Uri.parse('https://ipinfo.io/$ip/geo'),
+    );
+    String jsonStringIpCity = responseIpCity.body;
+    final jsonConvertedIpCity = jsonDecode(jsonStringIpCity);
+    return jsonConvertedIpCity['city'];
+  }
+
+  Future<String> ipCountry(String ip) async {
+    final responseIpCountry = await http.get(
+      Uri.parse('https://ipinfo.io/$ip/geo'),
+    );
+    String jsonStringIpCountry = responseIpCountry.body;
+    final jsonConvertedIpCountry = jsonDecode(jsonStringIpCountry);
+    return jsonConvertedIpCountry['country'];
+  }
+
   double horizontalPadding = 0;
   double verticallPadding = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    ipFuture = ipDisplay();
+    cityFuture = ipFuture.then((ip) {
+      return ipCity(ip);
+    });
+    countryFuture = ipFuture.then((ip) {
+      return ipCountry(ip);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +93,7 @@ class _SimpleApiState extends State<SimpleApi> {
         title: Text('Simple API'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Center(
           child: Column(
             spacing: 16,
@@ -88,6 +130,57 @@ class _SimpleApiState extends State<SimpleApi> {
                       );
                     },
                   ),
+              Spacer(),
+              Column(
+                children: [
+                  FutureBuilder<String>(
+                    future: ipFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text('Looking up your IP');
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Text('No IP found');
+                      }
+
+                      return Text(snapshot.data.toString());
+                    },
+                  ),
+                  FutureBuilder<String>(
+                    future: countryFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text('Looking up your location');
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Text('No IP found');
+                      }
+
+                      return Text(snapshot.data.toString());
+                    },
+                  ),
+                  FutureBuilder<String>(
+                    future: cityFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text('Looking up your location');
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Text('No IP found');
+                      }
+
+                      return Text(snapshot.data.toString());
+                    },
+                  ),
+
+                  SizedBox(
+                    height: 50,
+                  ),
+                ],
+              ),
             ],
           ),
         ),
