@@ -8,6 +8,7 @@ import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_scree
 import 'package:kapital_5/src/features/5.3.1_user_input/presentation/text_input_app.dart';
 import 'package:kapital_5/src/features/5.1.4_input_validation/presentation/input_validation.dart';
 import 'package:kapital_5/src/features/5.3.3_shared_preferences/presentation/shared_prefs.dart';
+import 'package:kapital_5/src/features/5.4.1_simple_api/presentation/simple_api.dart';
 import 'package:kapital_5/src/features/ms_paint/presentation/ms_paint.dart';
 import 'package:kapital_5/src/theme/palette.dart';
 
@@ -30,6 +31,7 @@ class MainScreen extends StatelessWidget {
       Futures(),
       MyFutureBuilder(repository),
       SharedPrefs(repository),
+      SimpleApi(),
     ];
 
     return SizedBox(
