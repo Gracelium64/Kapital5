@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:kapital_5/src/features/5.4.1_simple_api/presentation/widgets/future_builder_ip_details.dart';
 import 'package:kapital_5/src/theme/palette.dart';
+import 'package:kapital_5/src/features/5.4.1_simple_api/domain/functions.dart';
 
 class SimpleApi extends StatefulWidget {
   const SimpleApi({super.key});
@@ -18,37 +18,6 @@ class _SimpleApiState extends State<SimpleApi> {
   late Future<Map<String, dynamic>> ipFutureDetails;
   List<String> bullshitList = [];
   final ScrollController getDown = ScrollController();
-
-  Future<String> bullshitLoader() async {
-    final response = await http.get(
-      Uri.parse(
-        'https://corporatebs-generator.sameerkumar.website',
-      ),
-    );
-    String jsonString = response.body;
-    final jsonConverted = jsonDecode(jsonString);
-    return jsonConverted['phrase'];
-  }
-
-  Future<String> ipDisplay() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    final reponseIp = await http.get(
-      Uri.parse('https://api.ipify.org/?format=json'),
-    );
-    String jsonStringIp = reponseIp.body;
-    final jsonConvertedIp = jsonDecode(jsonStringIp);
-    return jsonConvertedIp['ip'];
-  }
-
-  Future<Map<String, dynamic>> ipDetails(String ip) async {
-    await Future.delayed(Duration(milliseconds: 750));
-    final responseipDetails = await http.get(
-      Uri.parse('https://ipinfo.io/$ip/geo'),
-    );
-    String jsonStringIpDetails = responseipDetails.body;
-    final jsonConvertedIpDetails = jsonDecode(jsonStringIpDetails);
-    return jsonConvertedIpDetails;
-  }
 
   double horizontalPadding = 0;
   double verticallPadding = 0;
@@ -173,7 +142,7 @@ class _SimpleApiState extends State<SimpleApi> {
                       },
                       child: Text(
                         currentItem,
-                        style: const TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   );
@@ -196,35 +165,15 @@ class _SimpleApiState extends State<SimpleApi> {
                     return Text(snapshot.data.toString());
                   },
                 ),
-                FutureBuilder<Map<String, dynamic>>(
-                  future: ipFutureDetails,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text('Looking up your location');
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return Text('No IP found');
-                    }
-                    final data = snapshot.data!;
-
-                    return Text(data['country']);
-                  },
+                FutureBuilderIpDetails(
+                  ipFutureDetails: ipFutureDetails,
+                  whatDetail: 'country',
+                  loadingMsg: 'Looking up your location',
                 ),
-                FutureBuilder<Map<String, dynamic>>(
-                  future: ipFutureDetails,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text('');
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return Text('No IP found');
-                    }
-                    final data = snapshot.data!;
-
-                    return Text(data['city']);
-                  },
+                FutureBuilderIpDetails(
+                  ipFutureDetails: ipFutureDetails,
+                  whatDetail: 'city',
+                  loadingMsg: '',
                 ),
                 SizedBox(
                   height: 50,
