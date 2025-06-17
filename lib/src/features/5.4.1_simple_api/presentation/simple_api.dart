@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:kapital_5/src/theme/palette.dart';
 
 class SimpleApi extends StatefulWidget {
   const SimpleApi({super.key});
@@ -13,8 +15,8 @@ class SimpleApi extends StatefulWidget {
 class _SimpleApiState extends State<SimpleApi> {
   Future<String>? bullshit;
   late Future<String> ipFuture;
-  late Future<String> cityFuture;
-  late Future<String> countryFuture;
+  late Future<Map<String, dynamic>> ipFutureDetails;
+  List<String> bullshitList = [];
 
   Future<String> bullshitLoader() async {
     final response = await http.get(
@@ -22,13 +24,13 @@ class _SimpleApiState extends State<SimpleApi> {
         'https://corporatebs-generator.sameerkumar.website',
       ),
     );
-
     String jsonString = response.body;
     final jsonConverted = jsonDecode(jsonString);
     return jsonConverted['phrase'];
   }
 
   Future<String> ipDisplay() async {
+    await Future.delayed(Duration(milliseconds: 500));
     final reponseIp = await http.get(
       Uri.parse('https://api.ipify.org/?format=json'),
     );
@@ -37,22 +39,14 @@ class _SimpleApiState extends State<SimpleApi> {
     return jsonConvertedIp['ip'];
   }
 
-  Future<String> ipCity(String ip) async {
-    final responseIpCity = await http.get(
+  Future<Map<String, dynamic>> ipDetails(String ip) async {
+    await Future.delayed(Duration(milliseconds: 750));
+    final responseipDetails = await http.get(
       Uri.parse('https://ipinfo.io/$ip/geo'),
     );
-    String jsonStringIpCity = responseIpCity.body;
-    final jsonConvertedIpCity = jsonDecode(jsonStringIpCity);
-    return jsonConvertedIpCity['city'];
-  }
-
-  Future<String> ipCountry(String ip) async {
-    final responseIpCountry = await http.get(
-      Uri.parse('https://ipinfo.io/$ip/geo'),
-    );
-    String jsonStringIpCountry = responseIpCountry.body;
-    final jsonConvertedIpCountry = jsonDecode(jsonStringIpCountry);
-    return jsonConvertedIpCountry['country'];
+    String jsonStringIpDetails = responseipDetails.body;
+    final jsonConvertedIpDetails = jsonDecode(jsonStringIpDetails);
+    return jsonConvertedIpDetails;
   }
 
   double horizontalPadding = 0;
@@ -62,11 +56,8 @@ class _SimpleApiState extends State<SimpleApi> {
   void initState() {
     super.initState();
     ipFuture = ipDisplay();
-    cityFuture = ipFuture.then((ip) {
-      return ipCity(ip);
-    });
-    countryFuture = ipFuture.then((ip) {
-      return ipCountry(ip);
+    ipFutureDetails = ipFuture.then((ip) {
+      return ipDetails(ip);
     });
   }
 
@@ -100,7 +91,8 @@ class _SimpleApiState extends State<SimpleApi> {
             children: [
               SizedBox(),
               Text(
-                'Welcome to Bullshit Generator',
+                'Welcome to Corporate Bullshit Generator',
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               ElevatedButton(
@@ -124,13 +116,58 @@ class _SimpleApiState extends State<SimpleApi> {
                         return Text('No bullshit available');
                       }
 
+                      final phrase = snapshot.data!;
+
+                      if (!bullshitList.contains(phrase)) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          setState(() {
+                            bullshitList.add(phrase);
+                          });
+                        });
+                      }
+
                       return Text(
-                        snapshot.data!,
+                        phrase,
                         textAlign: TextAlign.center,
                       );
                     },
                   ),
               Spacer(),
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: bullshitList.length,
+                  itemBuilder: (context, index) {
+                    String currentItem = bullshitList[index];
+                    return InkWell(
+                      onTap: () {
+                        Clipboard.setData(ClipboardData(text: currentItem));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Copied to clipboard',
+                              style: TextStyle(
+                                color: Palette.basicBitchWhite,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        minTileHeight: 40,
+                        tileColor: Palette.lightTeal,
+                        shape: Border.all(
+                          style: BorderStyle.solid,
+                          color: Palette.highlight,
+                          width: 1,
+                        ),
+                        title: Text(currentItem),
+                      ),
+                    );
+                  },
+                ),
+              ),
               Column(
                 children: [
                   FutureBuilder<String>(
@@ -147,8 +184,8 @@ class _SimpleApiState extends State<SimpleApi> {
                       return Text(snapshot.data.toString());
                     },
                   ),
-                  FutureBuilder<String>(
-                    future: countryFuture,
+                  FutureBuilder<Map<String, dynamic>>(
+                    future: ipFutureDetails,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Text('Looking up your location');
@@ -157,12 +194,13 @@ class _SimpleApiState extends State<SimpleApi> {
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                         return Text('No IP found');
                       }
+                      final data = snapshot.data!;
 
-                      return Text(snapshot.data.toString());
+                      return Text(data['country']);
                     },
                   ),
-                  FutureBuilder<String>(
-                    future: cityFuture,
+                  FutureBuilder<Map<String, dynamic>>(
+                    future: ipFutureDetails,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Text('Looking up your location');
@@ -171,11 +209,11 @@ class _SimpleApiState extends State<SimpleApi> {
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                         return Text('No IP found');
                       }
+                      final data = snapshot.data!;
 
-                      return Text(snapshot.data.toString());
+                      return Text(data['city']);
                     },
                   ),
-
                   SizedBox(
                     height: 50,
                   ),
