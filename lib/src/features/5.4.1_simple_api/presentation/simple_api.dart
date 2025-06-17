@@ -17,6 +17,7 @@ class _SimpleApiState extends State<SimpleApi> {
   late Future<String> ipFuture;
   late Future<Map<String, dynamic>> ipFutureDetails;
   List<String> bullshitList = [];
+  final ScrollController getDown = ScrollController();
 
   Future<String> bullshitLoader() async {
     final response = await http.get(
@@ -85,142 +86,152 @@ class _SimpleApiState extends State<SimpleApi> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
-        child: Center(
-          child: Column(
-            spacing: 16,
-            children: [
-              SizedBox(),
-              Text(
-                'Welcome to Corporate Bullshit Generator',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    bullshit = bullshitLoader();
-                  });
-                },
-                child: Text('Bullshit me'),
-              ),
-              bullshit == null
-                  ? SizedBox()
-                  : FutureBuilder<String>(
-                    future: bullshit,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Text('No bullshit available');
-                      }
+        child: Column(
+          spacing: 16,
+          children: [
+            SizedBox(),
+            Text(
+              'Welcome to Corporate Bullshit Generator',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  bullshit = bullshitLoader();
+                });
+              },
+              child: Text('Bullshit me'),
+            ),
+            bullshit == null
+                ? SizedBox()
+                : FutureBuilder<String>(
+                  future: bullshit,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return Text('No bullshit available');
+                    }
 
-                      final phrase = snapshot.data!;
+                    final phrase = snapshot.data!;
 
-                      if (!bullshitList.contains(phrase)) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          setState(() {
-                            bullshitList.add(phrase);
-                          });
+                    if (!bullshitList.contains(phrase)) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        setState(() {
+                          bullshitList.add(phrase);
                         });
-                      }
+                      });
 
-                      return Text(
-                        phrase,
-                        textAlign: TextAlign.center,
+                      getDown.animateTo(
+                        getDown.position.maxScrollExtent,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut,
                       );
-                    },
-                  ),
-              Spacer(),
-              SizedBox(
-                height: 200,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: bullshitList.length,
-                  itemBuilder: (context, index) {
-                    String currentItem = bullshitList[index];
-                    return InkWell(
+                    }
+
+                    return Text(
+                      phrase,
+                      textAlign: TextAlign.center,
+                    );
+                  },
+                ),
+            Spacer(),
+            SizedBox(
+              height: 200,
+              child: ListView.builder(
+                controller: getDown,
+                itemCount: bullshitList.length,
+                itemBuilder: (context, index) {
+                  String currentItem = bullshitList[index];
+                  return Container(
+                    margin: const EdgeInsets.symmetric(vertical: 0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Palette.lightTeal,
+                      border: Border.all(
+                        color: Palette.highlight,
+                        width: 1,
+                      ),
+                    ),
+                    child: GestureDetector(
                       onTap: () {
                         Clipboard.setData(ClipboardData(text: currentItem));
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
                               'Copied to clipboard',
-                              style: TextStyle(
-                                color: Palette.basicBitchWhite,
-                              ),
+                              style: TextStyle(color: Palette.basicBitchWhite),
                             ),
                           ),
                         );
                       },
-                      child: ListTile(
-                        minTileHeight: 40,
-                        tileColor: Palette.lightTeal,
-                        shape: Border.all(
-                          style: BorderStyle.solid,
-                          color: Palette.highlight,
-                          width: 1,
-                        ),
-                        title: Text(currentItem),
+                      child: Text(
+                        currentItem,
+                        style: const TextStyle(fontSize: 16),
                       ),
-                    );
+                    ),
+                  );
+                },
+              ),
+            ),
+            Column(
+              children: [
+                FutureBuilder<String>(
+                  future: ipFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Text('Looking up your IP');
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return Text('No IP found');
+                    }
+
+                    return Text(snapshot.data.toString());
                   },
                 ),
-              ),
-              Column(
-                children: [
-                  FutureBuilder<String>(
-                    future: ipFuture,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Text('Looking up your IP');
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Text('No IP found');
-                      }
+                FutureBuilder<Map<String, dynamic>>(
+                  future: ipFutureDetails,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Text('Looking up your location');
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return Text('No IP found');
+                    }
+                    final data = snapshot.data!;
 
-                      return Text(snapshot.data.toString());
-                    },
-                  ),
-                  FutureBuilder<Map<String, dynamic>>(
-                    future: ipFutureDetails,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Text('Looking up your location');
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Text('No IP found');
-                      }
-                      final data = snapshot.data!;
+                    return Text(data['country']);
+                  },
+                ),
+                FutureBuilder<Map<String, dynamic>>(
+                  future: ipFutureDetails,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Text('Looking up your location');
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return Text('No IP found');
+                    }
+                    final data = snapshot.data!;
 
-                      return Text(data['country']);
-                    },
-                  ),
-                  FutureBuilder<Map<String, dynamic>>(
-                    future: ipFutureDetails,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Text('Looking up your location');
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Text('No IP found');
-                      }
-                      final data = snapshot.data!;
-
-                      return Text(data['city']);
-                    },
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                ],
-              ),
-            ],
-          ),
+                    return Text(data['city']);
+                  },
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
