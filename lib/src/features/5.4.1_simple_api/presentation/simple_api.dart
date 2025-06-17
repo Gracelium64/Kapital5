@@ -215,7 +215,7 @@ class _SimpleApiState extends State<SimpleApi> {
                   future: ipFutureDetails,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text('Looking up your location');
+                      return Text('');
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
