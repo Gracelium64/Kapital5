@@ -133,9 +133,12 @@ class _SimpleApiState extends State<SimpleApi> {
                         Clipboard.setData(ClipboardData(text: currentItem));
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
+                            duration: Duration(milliseconds: 500),
                             content: Text(
                               'Copied to clipboard',
+
                               style: TextStyle(color: Palette.basicBitchWhite),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         );
