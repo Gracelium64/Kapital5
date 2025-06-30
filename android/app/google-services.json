@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "342870434502",
+    "project_id": "kapital5-6",
+    "storage_bucket": "kapital5-6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342870434502:android:a9bca5490c94b5e594adc7",
+        "android_client_info": {
+          "package_name": "com.example.kapital_5"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa_bKMz195r1N86jpAo2zx_PDfdk_dt3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

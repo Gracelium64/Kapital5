@@ -40,7 +40,7 @@ class MainScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Kapital 5'),
+          title: Text('Kapital 5 + 6'),
           backgroundColor: Palette.darkTeal,
         ),
 

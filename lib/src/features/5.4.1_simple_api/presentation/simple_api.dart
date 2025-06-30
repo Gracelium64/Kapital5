@@ -136,7 +136,6 @@ class _SimpleApiState extends State<SimpleApi> {
                             duration: Duration(milliseconds: 500),
                             content: Text(
                               'Copied to clipboard',
-
                               style: TextStyle(color: Palette.basicBitchWhite),
                               textAlign: TextAlign.center,
                             ),

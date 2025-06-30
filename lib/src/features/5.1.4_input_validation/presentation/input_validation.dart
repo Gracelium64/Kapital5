@@ -54,13 +54,13 @@ class _InputValidationState extends State<InputValidation> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
+          key: formKey,
           onChanged: () {
             setState(() {
               final bool isFormValid = formKey.currentState!.validate();
               isButtonEnabled = !isFormValid;
             });
           },
-          key: formKey,
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
