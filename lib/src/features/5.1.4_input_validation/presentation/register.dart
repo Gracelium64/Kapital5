@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kapital_5/src/data/authrepository.dart';
 import 'package:kapital_5/src/data/databaserepository.dart';
 import 'package:kapital_5/src/features/5.1.4_input_validation/domain/validators.dart';
-// import 'package:kapital_5/src/features/5.3.1_user_input/domain/app_user.dart';
-// import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_screen.dart';
+import 'package:kapital_5/src/features/5.3.1_user_input/domain/app_user.dart';
+import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_screen.dart';
 import 'package:kapital_5/src/theme/palette.dart';
 import 'dart:io' show Platform;
 

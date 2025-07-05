@@ -1,11 +1,11 @@
 import 'package:kapital_5/src/data/databaserepository.dart';
-// import 'package:kapital_5/src/features/5.3.1_user_input/domain/app_user.dart';
+import 'package:kapital_5/src/features/5.3.1_user_input/domain/app_user.dart';
 
 class MockDataRepository implements DataBaseRepository {
-  // final List<AppUser> userList = [
-  //   AppUser(userName: 'Grace', email: 'decoy@icloud.com', password: 'TheGame'),
-  //   AppUser(userName: 'Grace2', email: 'decoy@gmail.com', password: 'no'),
-  // ];
+  final List<AppUser> userList = [
+    AppUser(userName: 'Grace', email: 'decoy@icloud.com', password: 'TheGame'),
+    AppUser(userName: 'Grace2', email: 'decoy@gmail.com', password: 'no'),
+  ];
 
   List<String> internetsWon = [
     'Grace Savings and Risk Assessments',
