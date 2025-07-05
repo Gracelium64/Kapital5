@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:kapital_5/src/data/authrepository.dart';
 import 'package:kapital_5/src/data/databaserepository.dart';
 import 'package:kapital_5/src/features/5.1.4_input_validation/domain/validators.dart';
-import 'package:kapital_5/src/features/5.3.1_user_input/domain/app_user.dart';
-import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_screen.dart';
+// import 'package:kapital_5/src/features/5.3.1_user_input/domain/app_user.dart';
+// import 'package:kapital_5/src/features/5.3.1_user_input/presentation/login_screen.dart';
 import 'package:kapital_5/src/theme/palette.dart';
 import 'dart:io' show Platform;
 
-class InputValidation extends StatefulWidget {
+class Register extends StatefulWidget {
   final DataBaseRepository repository;
+  final Authrepository auth;
 
-  const InputValidation(this.repository, {super.key});
+  const Register(this.repository, this.auth, {super.key});
 
   @override
-  State<InputValidation> createState() => _InputValidationState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _InputValidationState extends State<InputValidation> {
+class _RegisterState extends State<Register> {
   TextEditingController userName = TextEditingController(text: '');
   TextEditingController userEmail = TextEditingController(text: '');
   TextEditingController userPassword = TextEditingController(text: '');
@@ -138,8 +140,10 @@ class _InputValidationState extends State<InputValidation> {
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
                                   builder:
-                                      (context) =>
-                                          LoginScreen(widget.repository),
+                                      (context) => LoginScreen(
+                                        widget.repository,
+                                        widget.auth,
+                                      ),
                                 ),
                               );
                             });
