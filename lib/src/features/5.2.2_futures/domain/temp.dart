@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 Future<int> myFunction1() async {
   await Future.delayed(Duration(seconds: 5));
   //await                       this counts
@@ -13,7 +15,7 @@ Future<int> myFunction2() async {
 Future<void> myFunction3() async {
   Future.delayed(Duration(seconds: 12));
   //no await              this doesn't count
-  print("Ready!");
+  debugPrint("Ready!");
 }
 
 Future<String> myFunction4() async {
@@ -26,7 +28,7 @@ Future<String> myFunction4() async {
 void main() async {
   final Future<String> myFuture = myFunction4();
   String a = await myFuture;
-  print(a);
+  debugPrint(a);
   // print(threeTimesTony('tony'));
 }
 // String threeTimesTony(String data) {

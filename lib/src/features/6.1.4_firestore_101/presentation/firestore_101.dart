@@ -103,6 +103,7 @@ class _Firestore101State extends State<Firestore101> {
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
+          spacing: 4,
           children: [
             TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -138,7 +139,10 @@ class _Firestore101State extends State<Firestore101> {
               onPressed: () {
                 _readDocument();
               },
-              child: Text('Read'),
+              child: Text('Read document'),
+            ),
+            SizedBox(
+              height: 32,
             ),
             TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -147,7 +151,7 @@ class _Firestore101State extends State<Firestore101> {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Palette.basicBitchWhite,
-                hintText: 'List documents and collections, enter path',
+                hintText: 'Enter path',
                 helperText: '/users/grace64/...',
                 contentPadding: EdgeInsets.only(bottom: 14),
                 enabledBorder: OutlineInputBorder(
@@ -174,7 +178,7 @@ class _Firestore101State extends State<Firestore101> {
               onPressed: () {
                 _countDocuments();
               },
-              child: Text('List'),
+              child: Text('List documents in directory'),
             ),
             Text('$debugPrintout'),
           ],
