@@ -23,7 +23,7 @@ class _Firestore101State extends State<Firestore101> {
   double verticallPadding = 0;
 
   Future<void> _listCollectionsOnly() async {
-    final input = userInput3.text.trim(); // user entry
+    final input = userInput3.text;
     final baseDocPath = 'users/grace64${input.isNotEmpty ? '/$input' : ''}';
 
     final knownCollections = [
@@ -32,7 +32,7 @@ class _Firestore101State extends State<Firestore101> {
       'current',
       'dailyTasks',
       'weeklyTasks',
-    ]; // update as needed
+    ];
 
     final buffer = StringBuffer();
     buffer.writeln('Path: $baseDocPath/');
