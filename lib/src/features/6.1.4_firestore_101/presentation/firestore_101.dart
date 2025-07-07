@@ -16,10 +16,56 @@ class Firestore101 extends StatefulWidget {
 class _Firestore101State extends State<Firestore101> {
   TextEditingController userInput1 = TextEditingController(text: '');
   TextEditingController userInput2 = TextEditingController(text: '');
+  TextEditingController userInput3 = TextEditingController(text: '');
 
   String? debugPrintout;
   double horizontalPadding = 0;
   double verticallPadding = 0;
+
+  Future<void> _listCollectionsOnly() async {
+    final input = userInput3.text.trim(); // user entry
+    final baseDocPath = 'users/grace64${input.isNotEmpty ? '/$input' : ''}';
+
+    final knownCollections = [
+      'tasks',
+      'userSettings',
+      'current',
+      'dailyTasks',
+      'weeklyTasks',
+    ]; // update as needed
+
+    final buffer = StringBuffer();
+    buffer.writeln('Path: $baseDocPath/');
+
+    try {
+      for (final colName in knownCollections) {
+        final collectionPath = '$baseDocPath/$colName';
+
+        final segments = collectionPath.split('/');
+        if (segments.length.isOdd) {
+          final snapshot =
+              await FirebaseFirestore.instance
+                  .collection(collectionPath)
+                  .limit(1)
+                  .get();
+
+          if (snapshot.docs.isNotEmpty) {
+            buffer.writeln('+ $colName');
+          } else {
+            buffer.writeln('- $colName (empty or not found)');
+          }
+        } else {
+          buffer.writeln('Skipped invalid collection path: $collectionPath');
+        }
+      }
+    } catch (e) {
+      buffer.writeln('Error: $e');
+    }
+
+    setState(() {
+      debugPrintout = buffer.toString();
+    });
+  }
 
   Future<void> _countDocuments() async {
     final input = userInput2.text;
@@ -105,14 +151,21 @@ class _Firestore101State extends State<Firestore101> {
         child: Column(
           spacing: 4,
           children: [
+            Text(
+              'Enter Path of Collection or Document',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            SizedBox(
+              height: 8,
+            ),
             TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
+              controller: userInput3,
               style: TextStyle(color: Palette.basicBitchBlack),
-              controller: userInput1,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Palette.basicBitchWhite,
-                hintText: 'Read a document, enter path',
+                hintText: 'List Sub-Collections in a Document',
                 helperText: '/users/grace64/...',
                 contentPadding: EdgeInsets.only(bottom: 14),
                 enabledBorder: OutlineInputBorder(
@@ -136,10 +189,8 @@ class _Firestore101State extends State<Firestore101> {
               textAlignVertical: TextAlignVertical.center,
             ),
             ElevatedButton(
-              onPressed: () {
-                _readDocument();
-              },
-              child: Text('Read document'),
+              onPressed: _listCollectionsOnly,
+              child: Text('List Sub-Collections in Document'),
             ),
             SizedBox(
               height: 32,
@@ -151,7 +202,7 @@ class _Firestore101State extends State<Firestore101> {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Palette.basicBitchWhite,
-                hintText: 'Enter path',
+                hintText: 'List Documents in a Collection',
                 helperText: '/users/grace64/...',
                 contentPadding: EdgeInsets.only(bottom: 14),
                 enabledBorder: OutlineInputBorder(
@@ -178,8 +229,50 @@ class _Firestore101State extends State<Firestore101> {
               onPressed: () {
                 _countDocuments();
               },
-              child: Text('List documents in directory'),
+              child: Text('List Documents in Collection'),
             ),
+            SizedBox(
+              height: 32,
+            ),
+            TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              style: TextStyle(color: Palette.basicBitchBlack),
+              controller: userInput1,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Palette.basicBitchWhite,
+                hintText: 'Read a Document',
+                helperText: '/users/grace64/...',
+                contentPadding: EdgeInsets.only(bottom: 14),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Palette.basicBitchBlack,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                hintStyle: TextStyle(
+                  color: Palette.basicBitchBlack,
+                  fontFamily: 'Inter',
+                  fontSize: 12,
+                ),
+              ),
+              textAlign: TextAlign.center,
+              textAlignVertical: TextAlignVertical.center,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _readDocument();
+              },
+              child: Text('Read Document'),
+            ),
+
+            SizedBox(height: 32),
+
             Text('$debugPrintout'),
           ],
         ),
@@ -191,6 +284,7 @@ class _Firestore101State extends State<Firestore101> {
   void dispose() {
     userInput1.dispose();
     userInput2.dispose();
+    userInput3.dispose();
     super.dispose();
   }
 }
