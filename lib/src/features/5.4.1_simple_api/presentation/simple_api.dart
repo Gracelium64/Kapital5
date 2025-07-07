@@ -33,21 +33,21 @@ class _SimpleApiState extends State<SimpleApi> {
 
   @override
   Widget build(BuildContext context) {
-    // if (Platform.isIOS) {
-    //   horizontalPadding = 124;
-    //   verticallPadding = 50;
-    // } else if (Platform.isAndroid) {
-    //   horizontalPadding = 128;
-    //   verticallPadding = 40;
-    // }
+    if (Platform.isIOS) {
+      horizontalPadding = 124;
+      verticallPadding = 50;
+    } else if (Platform.isAndroid) {
+      horizontalPadding = 128;
+      verticallPadding = 40;
+    }
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         flexibleSpace: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: 128,
-            vertical: 40,
+            horizontal: horizontalPadding,
+            vertical: verticallPadding,
           ),
           child: Text('5.4.1'),
         ),
