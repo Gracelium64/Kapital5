@@ -20,14 +20,6 @@ class FirebaseAuthRepository implements Authrepository {
     );
   }
 
-  // @override
-  // Future<void> signInWithUsernameAndPassword(String username, String pw) async {
-  //   await FirebaseAuth.instance.signInWithUsernameAndPassword(
-  //     email: username,
-  //     password: pw,
-  //   );
-  // }
-
   @override
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();

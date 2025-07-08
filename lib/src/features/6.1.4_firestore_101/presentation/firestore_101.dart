@@ -2,7 +2,8 @@ import 'dart:io' show Platform;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kapital_5/src/data/databaserepository.dart';
-import 'package:kapital_5/src/theme/palette.dart';
+import 'package:kapital_5/src/features/6.1.5_Serialization/domain/serialization.dart';
+import 'package:kapital_5/src/features/6.1.4_firestore_101/presentation/widgets/my_text_form_field.dart';
 
 class Firestore101 extends StatefulWidget {
   final DataBaseRepository repository;
@@ -146,135 +147,59 @@ class _Firestore101State extends State<Firestore101> {
         ),
         title: Text('Firestore 101'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          spacing: 4,
-          children: [
-            Text(
-              'Enter Path of Collection or Document',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              controller: userInput3,
-              style: TextStyle(color: Palette.basicBitchBlack),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Palette.basicBitchWhite,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            spacing: 4,
+            children: [
+              Text(
+                'Enter Path of Collection or Document',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              MyTextFormField(
+                userInput: userInput3,
                 hintText: 'List Sub-Collections in a Document',
-                helperText: '/users/grace64/...',
-                contentPadding: EdgeInsets.only(bottom: 14),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Palette.basicBitchBlack,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                hintStyle: TextStyle(
-                  color: Palette.basicBitchBlack,
-                  fontFamily: 'Inter',
-                  fontSize: 12,
-                ),
               ),
-              textAlign: TextAlign.center,
-              textAlignVertical: TextAlignVertical.center,
-            ),
-            ElevatedButton(
-              onPressed: _listCollectionsOnly,
-              child: Text('List Sub-Collections in Document'),
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              controller: userInput2,
-              style: TextStyle(color: Palette.basicBitchBlack),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Palette.basicBitchWhite,
+              ElevatedButton(
+                onPressed: _listCollectionsOnly,
+                child: Text('List Sub-Collections in Document'),
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              MyTextFormField(
+                userInput: userInput2,
                 hintText: 'List Documents in a Collection',
-                helperText: '/users/grace64/...',
-                contentPadding: EdgeInsets.only(bottom: 14),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Palette.basicBitchBlack,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                hintStyle: TextStyle(
-                  color: Palette.basicBitchBlack,
-                  fontFamily: 'Inter',
-                  fontSize: 12,
-                ),
               ),
-              textAlign: TextAlign.center,
-              textAlignVertical: TextAlignVertical.center,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _countDocuments();
-              },
-              child: Text('List Documents in Collection'),
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              style: TextStyle(color: Palette.basicBitchBlack),
-              controller: userInput1,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Palette.basicBitchWhite,
+              ElevatedButton(
+                onPressed: () {
+                  _countDocuments();
+                },
+                child: Text('List Documents in Collection'),
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              MyTextFormField(
+                userInput: userInput1,
                 hintText: 'Read a Document',
-                helperText: '/users/grace64/...',
-                contentPadding: EdgeInsets.only(bottom: 14),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Palette.basicBitchBlack,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                hintStyle: TextStyle(
-                  color: Palette.basicBitchBlack,
-                  fontFamily: 'Inter',
-                  fontSize: 12,
-                ),
               ),
-              textAlign: TextAlign.center,
-              textAlignVertical: TextAlignVertical.center,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _readDocument();
-              },
-              child: Text('Read Document'),
-            ),
+              ElevatedButton(
+                onPressed: () {
+                  _readDocument();
+                },
+                child: Text('Read Document'),
+              ),
 
-            SizedBox(height: 32),
+              SizedBox(height: 32),
 
-            Text('$debugPrintout'),
-          ],
+              Text('$debugPrintout'),
+            ],
+          ),
         ),
       ),
     );
