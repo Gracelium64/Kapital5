@@ -161,6 +161,7 @@ class _Firestore101State extends State<Firestore101> {
                 height: 8,
               ),
               MyTextFormField(
+                helperText: '/users/grace64/...',
                 userInput: userInput3,
                 hintText: 'List Sub-Collections in a Document',
               ),
@@ -172,6 +173,7 @@ class _Firestore101State extends State<Firestore101> {
                 height: 32,
               ),
               MyTextFormField(
+                helperText: '/users/grace64/...',
                 userInput: userInput2,
                 hintText: 'List Documents in a Collection',
               ),
@@ -185,6 +187,7 @@ class _Firestore101State extends State<Firestore101> {
                 height: 32,
               ),
               MyTextFormField(
+                helperText: '/users/grace64/...',
                 userInput: userInput1,
                 hintText: 'Read a Document',
               ),

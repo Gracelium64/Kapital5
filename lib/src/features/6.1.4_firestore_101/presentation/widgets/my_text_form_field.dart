@@ -3,11 +3,12 @@ import 'package:kapital_5/src/theme/palette.dart';
 
 class MyTextFormField extends StatelessWidget {
   final String hintText;
+  final String helperText;
 
   const MyTextFormField({
     super.key,
     required this.userInput,
-    required this.hintText,
+    required this.hintText, required this.helperText,
   });
 
   final TextEditingController userInput;
@@ -22,7 +23,7 @@ class MyTextFormField extends StatelessWidget {
         filled: true,
         fillColor: Palette.basicBitchWhite,
         hintText: hintText,
-        helperText: '/users/grace64/...',
+        helperText: helperText,
         contentPadding: EdgeInsets.only(bottom: 14),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide.none,

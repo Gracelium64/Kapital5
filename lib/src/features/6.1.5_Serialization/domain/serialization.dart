@@ -1,6 +1,13 @@
 import 'package:kapital_5/src/features/5.2.2_futures/domain/functions.dart';
 
-Future<List<String>> serialization() async {
+Future<List<String>> serialization(
+  int dailyUsers,
+  int userDailyReads,
+  int userDailyWrites,
+  int userDailyDeletes,
+  int dailyTrafficMB,
+  int dailyDataMB,
+) async {
   final List<String> output = [];
   double? a;
   double? b;
@@ -9,14 +16,14 @@ Future<List<String>> serialization() async {
 
   bunny();
 
-  final int dailyUsers = 5000;
+  // // // // final int dailyUsers = 5000;
 
-  final int userDailyReads = 100;
-  final int userDailyWrites = 40;
-  final int userDailyDeletes = 20;
+  // // // // final int userDailyReads = 100;
+  // // // // final int userDailyWrites = 40;
+  // // // // final int userDailyDeletes = 20;
 
-  final int dailyTrafficMB = 100;
-  final int dailyDataMB = 225;
+  // // // // final int dailyTrafficMB = 100;
+  // // // // final int dailyDataMB = 225;
 
   int dailyReads = userDailyReads * dailyUsers;
   int dailyWrites = userDailyWrites * dailyUsers;
