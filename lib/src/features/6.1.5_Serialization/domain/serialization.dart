@@ -68,7 +68,7 @@ Future<List<String>> serialization() async {
 
   output.add(c);
 
-  d = "D) The prices can rise for both due to supplier chain and infrastructure costs, what matters is the volume of data created by volume of users. At 5000 users this Product doesn't even come close the funds to move to an SQL Server. ";
+  d = "D) The prices can rise for both due to supplier chain and infrastructure costs, what matters is the volume of data created by volume of users. At 5000 users this Product doesn't even come close the justify the funds to move to an SQL Server. ";
 
   output.add(d);
 
