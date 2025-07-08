@@ -55,6 +55,7 @@ class _FirestoreVsSqlState extends State<FirestoreVsSql> {
               Row(
                 children: [
                   Column(
+                    // Without a sized box, MyTextFormField doesn't play well with the UI //
                     children: [
                       SizedBox(
                         height: 50,
