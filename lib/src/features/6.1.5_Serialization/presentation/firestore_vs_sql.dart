@@ -70,7 +70,6 @@ class _FirestoreVsSqlState extends State<FirestoreVsSql> {
                       SizedBox(
                         height: 50,
                         width: 200,
-
                         child: MyTextFormField(
                           userInput: userDailyReadsInput,
                           hintText: 'Amount of reads per User',
