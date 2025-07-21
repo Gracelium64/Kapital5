@@ -13,14 +13,14 @@ import 'package:device_preview/device_preview.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: 'black_speech.env');
-  try {
-    await Firebase.initializeApp(options: FirebaseEnvOptions.currentPlatform);
-  } catch (e) {
-    if (e.toString().contains('already exists')) {
-    } else {
-      rethrow;
-    }
-  }
+  // try {
+  await Firebase.initializeApp(options: FirebaseEnvOptions.currentPlatform);
+  // } catch (e) {
+  //   if (e.toString().contains('already exists')) {
+  //   } else {
+  //     rethrow;
+  //   }
+  // }
   final Authrepository auth = FirebaseAuthRepository();
   final DataBaseRepository repository = MockDataRepository();
 

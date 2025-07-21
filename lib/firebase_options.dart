@@ -36,6 +36,8 @@ class FirebaseEnvOptions {
     projectId: dotenv.env['projectIdIos']!,
     storageBucket: dotenv.env['storageBucketIos'],
     iosBundleId: dotenv.env['iosBundleIdIos'],
+    androidClientId: dotenv.env['androidClientIdIos'],
+    iosClientId: dotenv.env['iosClientIdIos'],
   );
 
   static FirebaseOptions get macos => FirebaseOptions(
@@ -45,6 +47,8 @@ class FirebaseEnvOptions {
     projectId: dotenv.env['projectIdMac']!,
     storageBucket: dotenv.env['storageBucketMac'],
     iosBundleId: dotenv.env['iosBundleIdMac'],
+    androidClientId: dotenv.env['androidClientIdMac'],
+    iosClientId: dotenv.env['iosClientIdMac'],
   );
 
   static FirebaseOptions get windows => FirebaseOptions(
